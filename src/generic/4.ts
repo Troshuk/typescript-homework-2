@@ -2,29 +2,20 @@
   Використовуйте generics та інтерфейси, щоб виправити помилку в наступних класах:
 */
 
-type ComponentProps = {
-  id: number;
-};
-
-class Component<Props extends ComponentProps> {
-  constructor(public props: Props) {}
-}
-
-type PageProps = ComponentProps & {
+interface Props {
   title: string;
-};
-
-interface PageComponent {
-  props: PageProps;
-  pageInfo(): void;
 }
 
-class Page extends Component<PageProps> implements PageComponent {
+class Component<T> {
+  constructor(public props: T) {}
+}
+
+class Page extends Component<Props> {
   pageInfo() {
     console.log(this.props.title);
   }
 }
 
-const page = new Page({ id: 1, title: "ABC..." });
+const page = new Page({ title: "ABC..." });
 
 export {};
